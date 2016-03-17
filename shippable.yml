@@ -7,54 +7,54 @@ build:
   post_ci:
       # Pushing to 3 different registries
       # DockerHub
-      - docker build -t="harryi3t/sample_node_eb_docker:$BRANCH.$BUILD_NUMBER" .
-      - docker push harryi3t/sample_node_eb_docker:$BRANCH.$BUILD_NUMBER
+      - docker build -t="shippabledocker/shiphitchcock1_sample_node_eb_docker:$BRANCH.$BUILD_NUMBER" .
+      - docker push shippabledocker/shiphitchcock1_sample_node_eb_docker:$BRANCH.$BUILD_NUMBER
       # ECR
-      - docker tag harryi3t/sample_node_eb_docker:$BRANCH.$BUILD_NUMBER 480971114143.dkr.ecr.us-east-1.amazonaws.com/sample_node_eb_docker:$BRANCH.$BUILD_NUMBER
-      - docker push 480971114143.dkr.ecr.us-east-1.amazonaws.com/sample_node_eb_docker:$BRANCH.$BUILD_NUMBER
+      - docker tag shippabledocker/shiphitchcock1_sample_node_eb_docker:$BRANCH.$BUILD_NUMBER 480971114143.dkr.ecr.us-east-1.amazonaws.com/shiphitchcock1_sample_node_eb_docker:$BRANCH.$BUILD_NUMBER
+      - docker push 480971114143.dkr.ecr.us-east-1.amazonaws.com/shiphitchcock1_sample_node_eb_docker:$BRANCH.$BUILD_NUMBER
       # Quay
-      - docker tag harryi3t/sample_node_eb_docker:$BRANCH.$BUILD_NUMBER quay.io/shippablequay/sample_node_eb_docker:$BRANCH.$BUILD_NUMBER
-      - docker push quay.io/shippablequay/sample_node_eb_docker:$BRANCH.$BUILD_NUMBER
+      - docker tag shippabledocker/shiphitchcock1_sample_node_eb_docker:$BRANCH.$BUILD_NUMBER quay.io/shippablequay/shiphitchcock1_sample_node_eb_docker:$BRANCH.$BUILD_NUMBER
+      - docker push quay.io/shippablequay/shiphitchcock1_sample_node_eb_docker:$BRANCH.$BUILD_NUMBER
 
 integrations:
   deploy:
     # Public Image (quay)
-    - integrationName: "aws-test"
+    - integrationName: "ship-aws"
       type: aws
       target: eb_docker
       application_name: "sample-node-eb-docker-app"
       env_name: "quay-env"
       bucket_name: "elasticbeanstalk-us-east-1-480971114143"
       region: "us-east-1"
-      image_name: "quay.io/shippablequay/sample_node_eb_docker:$BRANCH.$BUILD_NUMBER"
+      image_name: "quay.io/shippablequay/shiphitchcock1_sample_node_eb_docker:$BRANCH.$BUILD_NUMBER"
       container_port: "80"
 
     # Public Image (docker)
-    - integrationName: "aws-test"
+    - integrationName: "ship-aws"
       type: aws
       target: eb_docker
       application_name: "sample-node-eb-docker-app"
       env_name: "docker-env"
       bucket_name: "elasticbeanstalk-us-east-1-480971114143"
       region: "us-east-1"
-      image_name: "harryi3t/sample_node_eb_docker:$BRANCH.$BUILD_NUMBER"
+      image_name: "shippabledocker/shiphitchcock1_sample_node_eb_docker:$BRANCH.$BUILD_NUMBER"
       container_port: "80"
 
     # Private Image (ECR)
-    - integrationName: "aws-test"
+    - integrationName: "ship-aws"
       type: aws
       target: eb_docker
       application_name: "sample-node-eb-docker-app"
       env_name: "ecr-env"
       bucket_name: "elasticbeanstalk-us-east-1-480971114143"
       region: "us-east-1"
-      image_name: "480971114143.dkr.ecr.us-east-1.amazonaws.com/sample_node_eb_docker:$BRANCH.$BUILD_NUMBER"
+      image_name: "480971114143.dkr.ecr.us-east-1.amazonaws.com/shiphitchcock1_sample_node_eb_docker:$BRANCH.$BUILD_NUMBER"
       container_port: "80"
 
   hub:
-    - integrationName: "ecr-test"
+    - integrationName: "ship-ecr"
       type: ecr
-    - integrationName: "docker-test"
+    - integrationName: "ship-docker"
       type: docker
-    - integrationName: "quay-test"
+    - integrationName: "ship-quay"
       type: quay.io
